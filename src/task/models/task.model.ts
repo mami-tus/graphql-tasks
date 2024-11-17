@@ -2,7 +2,7 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Task {
-  // 数値型（これはGraphQLのIntまたはFloatのいずれかにマッピングするため)は型引数が必要
+  // 数値型はデフォルトだとGraphQLのFloatになるので型引数でIntを指定
   @Field(() => Int)
   id: number;
 
