@@ -1,6 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Task } from '@prisma/client';
 import { CreateTaskInput } from 'src/task/dto/createTask.input';
+import { UpdateTaskInput } from 'src/task/dto/updateTask.input';
 import { Task as TaskModel } from 'src/task/models/task.model';
 import { TaskService } from 'src/task/task.service';
 
@@ -19,5 +20,12 @@ export class TaskResolver {
     @Args('createTaskInput') createTaskInput: CreateTaskInput, // GraphQLのリクエストから情報を取り出すために@Argsつける
   ): Promise<Task> {
     return await this.taskService.createTask(createTaskInput);
+  }
+
+  @Mutation(() => TaskModel)
+  async updateTask(
+    @Args('updateTaskInput') updateTaskInput: UpdateTaskInput,
+  ): Promise<Task> {
+    return await this.taskService.updateTask(updateTaskInput);
   }
 }
