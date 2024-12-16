@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Task } from '@prisma/client';
 import { CreateTaskInput } from 'src/task/dto/createTask.input';
 import { UpdateTaskInput } from 'src/task/dto/updateTask.input';
@@ -27,5 +27,10 @@ export class TaskResolver {
     @Args('updateTaskInput') updateTaskInput: UpdateTaskInput,
   ): Promise<Task> {
     return await this.taskService.updateTask(updateTaskInput);
+  }
+  @Mutation(() => TaskModel)
+  // @ArgsでGraphQL側の引数は'id'をTypeScriptの引数idにマッピング
+  async deleteTask(@Args('id', { type: () => Int }) id: number): Promise<Task> {
+    return await this.taskService.deleteTask(id);
   }
 }
