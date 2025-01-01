@@ -11,8 +11,10 @@ export class TaskResolver {
 
   // getTasksがGraphQLのデータを取得するためのメソッドであることを伝えるために@Query()デコレータを使用
   @Query(() => [TaskModel], { nullable: 'items' })
-  async getTasks(): Promise<Task[]> {
-    return await this.taskService.getTasks();
+  async getTasks(
+    @Args('userId', { type: () => Int }) userId: number,
+  ): Promise<Task[]> {
+    return await this.taskService.getTasks(userId);
   }
 
   @Mutation(() => TaskModel)
