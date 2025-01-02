@@ -6,5 +6,6 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 @Module({
   imports: [PrismaModule],
   providers: [UserResolver, UserService],
+  exports: [UserService], // 認証の際にユーザー情報を取得するためにUserServiceをexport
 })
 export class UserModule {}
